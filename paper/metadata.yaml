@@ -1,37 +1,28 @@
 # Add Article details
 # https://pandoc.org/jats.html#required-metadata
-title: Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+title: "ScholarImpact: A Python tool to analyse, visualise, and share individual research impact, output and scholarly influence using bibliometric data"
 abstract: |
- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam 
- pharetra metus ut nisi porta suscipit. Morbi at orci quis justo 
- posuere convallis. Curabitur dapibus mollis pharetra. Curabitur 
- eleifend vel leo vel condimentum. Phasellus elementum viverra eros. 
- Vestibulum rhoncus nisl ipsum, nec pulvinar tellus luctus at. Etiam 
- ullamcorper nec justo molestie mattis. Phasellus dapibus erat ut nisl 
- dapibus, ut scelerisque dui tempus.
+  In this software paper we introduce ScholarImpact, an open-source Python tool empowering individual researchers to create personalized, deployable web dashboards showcasing their scholarly impact. The software generates shareable visualizations for grant applications and career development, democratizing sophisticated bibliometric analysis previously limited to institutional platforms.
 tags:
-  - tag1
-  - tag2
+  - Python
+  - bibliometrics
+  - research impact
+  - citation analysis
+  - scholarly communication
+  - OpenAlex
+  - Google Scholar
 # Name of Authors in order
 author:
-  - name: First Author
-    orcid: 000-1111-2222-3333
-    surname: Author
-    given-names: First
-    email: first@example.com
-    affiliation: 1, 2
+  - name: Abhishek Tiwari
+    orcid: 0000-0003-2222-2395
+    surname: Tiwari
+    given-names: Abhishek
+    email: abhishek@abhishek-tiwari.com
+    affiliation: 1
     corresponding: true
-  - name: Second Author
-    orcid: 000-1111-2222-3334
-    surname: Author
-    given-names: Second
-    email: second@example.com
-    affiliation: 2
 affiliation:
- - organization: Example Corp
+ - organization: D3ML
    id: 1
- - organization: The University of Z
-   id: 2
 journal:
   title: Journal of Xyz
 # ISO 8601 standard format i.e. YYYY-MM-DDTHH:MM:SS 

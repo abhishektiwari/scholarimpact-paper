@@ -1,184 +1,31 @@
-# Nam pretium feugiat consequat
+# Summary
+[ScholarImpact](https://github.com/abhishektiwari/scholarimpact) is a Python-based bibliometric analysis tool designed to help researchers analyse, visualise, and share their research impact, output and scholarly influence. The software extracts initial data from a given Google Scholar profile and performs enrichment using OpenAlex [@priem2022openalex] and Altmetric [@adie2013altmetric] to provide multidimensional insights into citation patterns, geographic distribution, institutional reach, patent citations, and interdisciplinary influence. Unlike traditional citation metrics that provide only aggregate counts, ScholarImpact enables researchers to understand who is citing their work, where citations originate geographically and institutionally, and how their research impacts different domains and disciplines.
 
-Ut auctor quam quis erat placerat, id vestibulum ex tempor. Curabitur congue, ligula non faucibus rhoncus, purus nunc luctus nunc, id fringilla neque urna ac turpis. Integer fermentum vehicula dui vel tincidunt. Suspendisse potenti. Proin aliquam, tortor ac efficitur mattis, nibh metus ultrices metus, eu tempor risus enim suscipit nisi. Quisque imperdiet eu nisi sed eleifend. Integer maximus leo eu velit volutpat mollis sit amet ut arcu. Sed id aliquam sapien. Donec bibendum velit quis elit tempus, et condimentum augue scelerisque.
+The tool features an interactive Streamlit-based dashboard that visualizes key metrics including total citations, unique citing authors, institutional diversity, country distribution, temporal citation trends, research domain analysis, and alternative metrics such as patent citations and Wikipedia mentions. ScholarImpact is distributed as a [pip-installable package](https://pypi.org/project/scholarimpact/) with a command-line interface that automates data extraction, enrichment, and visualization, making sophisticated bibliometric analysis accessible to researchers without specialized technical expertise.
 
-## Nam posuere ipsum ut
+# Statement of Need
 
-Nisl pharetra vestibulum. Fusce venenatis vulputate felis ac facilisis. Aenean cursus sed nulla non porta. Donec vestibulum sem purus, sit amet iaculis dolor dapibus sed. Mauris ut mattis leo, ac convallis ipsum. Duis facilisis facilisis cursus. Curabitur semper, magna ut scelerisque tincidunt, turpis orci commodo dolor, ac posuere ante quam in sapienas 8th time lucky as do.
+While numerous bibliometric tools exist, most focus exclusively on citation counts and h-indices, providing limited insight into the breadth and diversity of research impact [@hirsch2005index]. Individual researchers increasingly need to demonstrate and communicate their impact beyond traditional metrics, including geographic reach, interdisciplinary influence, and societal engagement [@bornmann2014alternative]. Existing commercial platforms like Web of Science, Dimension AI, and Scopus offer some geographic and institutional analysis but require expensive institutional subscriptions, lack personalization, and do not provide researchers with shareable visualizations of their own impact [@archambault2009comparison].
 
-![Call Graph](images/call-graph-v4.svg)
+ScholarImpact addresses these gaps by providing an open-source, accessible solution that combines data from multiple sources to deliver comprehensive impact analysis. The tool is designed for individual researchers seeking to understand and communicate their research impact for grant applications, tenure reviews, and personal career development.
 
-Suspendisse congue ante in velit finibus laoreet. Pellentesque non mattis ipsum. Maecenas in est pharetra, maximus odio et, laoreet mi. Mauris nec sem ut massa semper tristique. Integer sit amet tortor vitae ante consequat eleifend at vitae urna. Fusce quis sodales ipsum. Duis non porttitor erat. Curabitur auctor quis nunc vitae dictum. Etiam maximus augue in ante pretium finibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla imperdiet elit libero, id laoreet tellus lacinia in. Donec a leo ac urna placerat sagittis et eu risus. Vivamus tincidunt ante ut lacus pharetra elementum. Praesent eu commodo enim. Pellentesque porttitor auctor imperdiet.
+# Brief Overview
+For data extraction, ScholarImpact uses publicly available APIs and web scraping techniques that respect rate limits and terms of service. The modular design separates data collection (`extract-author` and `crawl-citations` commands), enrichment (OpenAlex and Altmetric integration), and visualization (Streamlit dashboard), allowing researchers to customize workflows. The `generate-dashboard` command creates standalone deployable projects suitable for sharing via Streamlit Cloud, enabling researchers to publicly showcase their impact.
 
-![Service Mesh Per Host](images/Service-Mesh-Per-Host.png)
+ScholarImpact leverages the scholarly-python library [@cholewiak2021scholarly] for Google Scholar data extraction and integrates with OpenAlex's comprehensive open bibliographic database to enrich citation data with institutional affiliations, country codes, and research domain classifications [@priem2022openalex]. Altmetric integration provides alternative impact indicators including social media mentions, policy document citations, and patent references [@adie2013altmetric]. The visualization framework uses Plotly [@plotly] for interactive charts and maps, allowing dynamic exploration of citation patterns across time, geography, and research domains.
 
-In lobortis consequat nibh, nec fringilla diam varius nec. In consectetur erat eu mi porttitor, eu consectetur velit tincidunt. Mauris ac vehicula lorem, vitae dapibus lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer sit amet massa quis diam consectetur rhoncus. Praesent pulvinar, justo quis commodo aliquet, metus purus lobortis ante, ac auctor ante enim ac turpis. Vivamus ut finibus lorem. Ut eget purus rutrum, ullamcorper ante eget, congue massa. Nullam sed justo vitae urna sollicitudin facilisis do test run.
+![Example dashboard showing research domains analysis, interdisciplinary impact metrics including patents and wikipedia mentions, and alternative metrics.](https://static.abhishek-tiwari.com/scholarimpact/research-domains-v4.png)
 
-+---------------------+-----------------------+
-| Location            | Temperature 1961-1990 |
-|                     | in degree Celsius     |
-|                     +-------+-------+-------+
-|                     | min   | mean  | max   |
-+=====================+=======+=======+=======+
-| Antarctica          | -89.2 | N/A   | 19.8  |
-+---------------------+-------+-------+-------+
-| Earth               | -89.2 | 14    | 56.7  |
-+---------------------+-------+-------+-------+
+The tool fills a critical niche by democratizing access to sophisticated bibliometric analysis. By combining open data sources with an intuitive interface and deployment-ready architecture, ScholarImpact enables researchers across disciplines and career stages to gain actionable insights into their scholarly influence. The software has been used to analyze citation patterns across computer science, social sciences, and interdisciplinary research, demonstrating its flexibility and broad applicability.
 
-Table:  Demonstration of simple table syntax.
+Future development roadmap includes enhanced citation network analysis, analysis for research software, co-authorship visualization, comparative benchmarking against field averages, and integration with additional data sources such as ORCID [@haak2012orcid] and CrossRef [@hendricks2020crossref]. Community contributions are welcome via the project's GitHub repository.
 
-# Mauris quis lacus
+# Availability
 
-Fusce ultricies ante sit amet dui egestas, vitae posuere libero facilisis [@tiwari2007workflow]. Aliquam tincidunt, odio et mattis finibus, leo ante vehicula ligula, ac accumsan nunc diam ut mi. Donec ullamcorper tempus auctor. Nunc varius aliquet lectus, id consectetur diam vulputate a. Maecenas suscipit lacus sed lorem fermentum venenatis. Integer eleifend non justo egestas egestas. Ut ut vehicula metus. Proin pulvinar bibendum finibus. Etiam ac vulputate lacus, ac sagittis magna. Etiam pharetra tempus magna, a mollis neque scelerisque nec. Mauris id tortor sollicitudin diam scelerisque suscipit. Ut tincidunt purus sed est aliquam, ut sodales libero ultricies. Etiam sodales tortor quis blandit elementum [@tiwari2017Jun23]. Vestibulum tincidunt placerat arcu vel congue. Sed sodales iaculis arcu accumsan euismod.
+ScholarImpact is distributed as a Python package on [PyPI](https://pypi.org/project/scholarimpact/), with the source code, testing modules, and a standalone script available under an MIT license through the [GitHub](https://github.com/abhishektiwari/scholarimpact) repository. A working demo of the deployed Streamlit-based dashboard can be found [here](https://scholarimpact.d3ml.org/).
 
+# Acknowledgements
 
-## Algorithm 1
-Just a sample algorithmn
-\begin{algorithm}[H]
-\DontPrintSemicolon
-\SetAlgoLined
-\KwResult{Write here the result}
-\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
-\Input{Write here the input}
-\Output{Write here the output}
-\BlankLine
-\While{While condition}{
-    instructions\;
-    \eIf{condition}{
-        instructions1\;
-        instructions2\;
-    }{
-        instructions3\;
-    }
-}
-\caption{While loop with If/Else condition}
-\end{algorithm} 
-
-Maecenas cursus, turpis non ultrices tristique, nisi nibh venenatis felis, vitae condimentum lacus dolor non ligula. Aliquam vel imperdiet ligula. Quisque eget luctus sem. Morbi ultrices elit mi. Suspendisse ante diam, vulputate a consectetur id, viverra vitae lacus. Duis mattis turpis eget magna sollicitudin, a hendrerit tortor sagittis. Proin scelerisque sollicitudin ex, vitae convallis tellus suscipit quis. Aenean dictum pellentesque libero, ut pharetra est pulvinar a. Nam sit amet nisi dignissim, molestie ligula a, laoreet erat. Nulla sit amet placerat turpis, condimentum pellentesque magna. Fusce sodales sollicitudin lorem, sed sollicitudin nulla vulputate eu. Donec tempus id augue imperdiet iaculis. Etiam iaculis enim sit amet tellus convallis, id mollis neque porttitor. Donec vel euismod neque, et pretium massa. Mauris ornare enim vitae quam aliquam, ut tristique orci convallis.
-
-```plantuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
-```
-
-Proin porttitor [feugiat orci vitae](#whatever1) condimentum. Duis in dui aliquet, faucibus odio et, egestas nulla. Proin non tristique quam, eu pulvinar ante. Nunc id lorem interdum, mattis arcu sed, dignissim ex. Nullam fringilla rutrum mi, sit amet tincidunt neque lacinia sit amet. Nullam felis ante, faucibus commodo malesuda ac, lacinia ut erat. Mauris purus dui, eleifend quis lacus non, pulvinar mollis felis. Nam elit nisi, facilisis vel nisl sit amet, aliquet viverra est. In sodales tristique sapien [vitae condimentum](#whatever2). Mauris condimentum sapien sit amet lacus consequat dictum. Aliquam vestibulum ut augue eget laoreet. Sed sed massa justo.
-
-```{.graphviz #whatever1 caption="this is graph using neato engine"}
-graph G {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	layout=neato
-	run -- intr;
-	intr -- runbl;
-	runbl -- run;
-	run -- kernel;
-	kernel -- zombie;
-	kernel -- sleep;
-	kernel -- runmem;
-	sleep -- swap;
-	swap -- runswap;
-	runswap -- new;
-	runswap -- runmem;
-	new -- runmem;
-	sleep -- runmem;
-}
-```
-
-Suspendisse aliquet nisi lacinia fermentum pretiuwm. Donec et condimentum ipsum, quis gravida ligula. Aliquam placerat massa eu ipsum viverra tincidunt. Maecenas pretium mauris quis tempor euismod. Maecenas imperdiet lorem sit amet varius consectetur. Nullam bibendum diam nec placerat sodales. Aenean molestie facilisis pharetra.
-
-```{.graphviz #whatever2 caption="this is graph using dot engine" layout="dot" directed=True}
-digraph finite_state_machine {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	rankdir=LR;
-	node [shape = doublecircle]; 0 3 4 8;
-	node [shape = circle];
-	0 -> 2 [label = "SS(B)"];
-	0 -> 1 [label = "SS(S)"];
-	1 -> 3 [label = "S($end)"];
-	2 -> 6 [label = "SS(b)"];
-	2 -> 5 [label = "SS(a)"];
-	2 -> 4 [label = "S(A)"];
-	5 -> 7 [label = "S(b)"];
-	5 -> 5 [label = "S(a)"];
-	6 -> 6 [label = "S(b)"];
-	6 -> 5 [label = "S(a)"];
-	7 -> 8 [label = "S(b)"];
-	7 -> 5 [label = "S(a)"];
-	8 -> 6 [label = "S(b)"];
-	8 -> 5 [label = "S(a)"];
-}
-```
-
-##  Sed sagittis tortor
-Sed rhoncus odio (see below) vitae velit sagittis, at consectetur felis venenatis. Proin feugiat eros at ultrices pellentesque. Quisque at diam ultricies, consequat ante non, auctor sapien. Nunc vel pulvinar risus. Aenean rutrum massa lacus, vel suscipit dui porta in. Etiam commodo, nunc a consequat finibus, arcu erat fringilla est, id sodales magna dui sit amet ligula. Aenean ligula nisl, lacinia sed quam vitae, vulputate eleifend nulla. Cras pellentesque nibh sit amet nulla luctus, vitae posuere velit lobortis. Integer id efficitur sapien. Vestibulum ac fringilla risus.
-
-
-\usetikzlibrary{automata, positioning, arrows, calc}
-\tikzset{
-	->,  % makes the edges directed
-	>=stealth, % makes the arrow heads bold
-	shorten >=2pt, shorten <=2pt, % shorten the arrow
-	node distance=3cm, % specifies the minimum distance between two nodes. Change if n
-	every state/.style={draw=blue!55,very thick,fill=blue!20}, % sets the properties for each ’state’ n
-	initial text=$ $, % sets the text that appears on the start arrow
- }
-\begin{figure}
-\centering
-\begin{tikzpicture}
-		\node[state with output, initial] (s0) {$S_0$ \nodepart{lower} $0$};
-		\node[state with output, right of=s0] (s1) {$S_1$ \nodepart{lower} $0$};
-		\node[state with output, right of=s1] (s2) {$S_2$ \nodepart{lower} $0$};
-		\node[state with output, right of=s2] (s3) {$S_3$ \nodepart{lower} $0$};
-		\node[state with output, right of=s3] (s4) {$S_4$ \nodepart{lower} $0$};
-		\node[state with output, accepting, right of=s4] (s5) {$S_5$ \nodepart{lower} $1$};
-		
-		\draw (s0) edge[loop above] node{$0$} (s0)
-			  (s0) edge[bend left] node[above]{$1$} (s1)
-			  %
-			  (s1) edge[bend left] node[above]{$0$} (s2)
-			  (s1) edge[bend left] node[above]{$1$} (s0)
-			  %
-			  (s2) edge[bend left] node[above]{$0$} (s3)
-			  (s2) edge[bend left=40] node[above]{$1$} (s0)
-			  %
-			  (s3) edge[bend left=50] node[above]{$0$} (s0)
-			  (s3) edge[bend left] node[above]{$1$} (s4)
-			  %
-			  (s4) edge[bend left] node[above]{$0$} (s5)
-			  (s4) edge[bend left=60] node[above]{$1$} (s0)
-			  %
-			  (s5) edge[bend right=40] node[above]{$1$} (s1)
-			  (s5) edge[bend left=70] node[above]{$0$} (s0)
-		;
-\end{tikzpicture}
-\caption{Moore Finite State Machine}
-\end{figure}
-
-Sed a congue eros. Morbi pulvinar commodo lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent vulputate pulvinar sollicitudin. Praesent ac vestibulum nisl. Praesent ac felis augue. Aliquam quis enim condimentum, sodales diam eu, fringilla felis. Phasellus vestibulum odio mauris, at tempus ante mollis quis.
-
-
-
-## Praesent eget orci turpis
-
-Integer urna velit, facilisis et auctor in, consequat in dui. Duis neque risus, dignissim eget nibh bibendum, sagittis rhoncus odio. Fusce a ante at tortor porttitor feugiat ac at tortor. Duis maximus laoreet lorem, eu feugiat velit tristique sit amet. Maecenas suscipit ante vel nulla condimentum, sit amet faucibus lectus aliquet. Aenean in aliquet ipsum. Fusce nisl orci, rutrum suscipit porta eu, euismod malesuada purus. Sed mollis bibendum massa sit amet venenatis.
-```
-#include <stdio.h>
-int main() {
-   // printf() displays the string inside quotation
-   printf("Hello, World!");
-   return 0;
-}
-```
-
-# Conclusion
-
-Pellentesque in justo quis sem commodo luctus et quis odio. Curabitur cursus faucibus tristique. Aliquam erat volutpat. Vestibulum quis orci dapibus, auctor ligula vitae, commodo dui. Phasellus id tincidunt urna, consequat maximus massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam elementum sit amet est id convallis. Vivamus ante ante, placerat id fermentum ut, suscipit sed neque. Nunc scelerisque nisl turpis, in aliquam velit ultrices in. Fusce libero lorem, rutrum nec semper at, posuere ac nulla. Integer pellentesque tincidunt elit vel ultrices. Integer tempus, sem bibendum eleifend tempor, est ligula pharetra metus, quis tristique urna eros ut nibh. Suspendisse dui nibh, vehicula eu pretium at, ultrices scelerisque augue.
-
+The author acknowledges the open-source communities behind scholarly-python, OpenAlex, Streamlit, and the broader Python scientific computing ecosystem. This work builds upon the foundations established by these projects to advance open science and reproducible research.
 
 # References
