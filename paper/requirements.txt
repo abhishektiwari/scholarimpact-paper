@@ -1,0 +1,8 @@
+pyyaml
+gitpython
+boto
+panflute
+graphviz
+pandoc
+pygraphviz
+pandoc-plantuml-filter

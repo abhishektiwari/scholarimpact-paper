@@ -1,0 +1,137 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  convert_via_pandoc:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files-yaml
+        uses: tj-actions/changed-files@v42
+        with:
+          files_yaml: |
+           paper:
+              - paper/**
+              - paper/images/**
+              - csl/**
+              - data/templates/**
+
+      - name: Set short git commit SHA
+        id: vars
+        run: |
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "COMMIT_SHORT_SHA=v$calculatedSha" >> $GITHUB_ENV
+
+      - name: Set env for time now
+        run: echo "NOW=v$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+      - name: Run step if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files-yaml.outputs.paper_all_changed_files }}
+        run: |
+          echo "One or more files in the paper folder has changed."
+          echo "List all the files that have changed: $ALL_CHANGED_FILES"
+
+      - name: Install pandoc if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        run: sudo apt-get update && curl -sLO https://github.com/jgm/pandoc/releases/download/3.1.12.1/pandoc-3.1.12.1-1-amd64.deb && sudo dpkg -i pandoc-3.1.12.1-1-amd64.deb && pandoc -v
+
+      - name: Install graphviz, panflute, rsvg-convert if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        run: sudo apt-get install graphviz libgraphviz-dev librsvg2-bin -y && pip install panflute graphviz
+
+      - name: Install pygraphviz if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        run: pip install pygraphviz && pip list
+
+      - name: Install PlantUML and Java if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        run: |
+          sudo apt-get install default-jre -y
+          wget -O /tmp/plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.8/plantuml-1.2024.8.jar
+          sudo mv /tmp/plantuml.jar /usr/local/bin/
+          echo '#!/bin/bash' | sudo tee /usr/local/bin/plantuml
+          echo 'java -jar /usr/local/bin/plantuml.jar "$@"' | sudo tee -a /usr/local/bin/plantuml
+          sudo chmod +x /usr/local/bin/plantuml
+          plantuml -version
+      
+      - name: Install texlive if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        run: sudo apt-get install texlive-full -y
+
+      - name: Build PDFs using make commands if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        run: |
+          make eisvogel
+          make arxiv
+          make arxiv-dist
+          make biorxiv
+          make biorxiv-dist
+          ls -la output/
+
+      - name: Create submission zips if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        run: |
+          cd output
+          zip -r arxiv-submission.zip arxiv-submission/
+          zip -r biorxiv-submission.zip biorxiv-submission/
+          ls -la
+
+      - name: Upload eisvogel PDF if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ github.workspace }}/output/article-eisvogel.pdf
+          asset_name: article-eisvogel.pdf
+          overwrite: true
+          tag: ${{ env.NOW }}
+          body: ${{ github.event.head_commit.message }}
+
+      - name: Upload arxiv PDF if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ github.workspace }}/output/article-arxiv.pdf
+          asset_name: article-arxiv.pdf
+          overwrite: true
+          tag: ${{ env.NOW }}
+          body: ${{ github.event.head_commit.message }}
+
+      - name: Upload bioRxiv PDF if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ github.workspace }}/output/article-biorxiv.pdf
+          asset_name: article-biorxiv.pdf
+          overwrite: true
+          tag: ${{ env.NOW }}
+          body: ${{ github.event.head_commit.message }}
+
+      - name: Upload arxiv submission package if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ github.workspace }}/output/arxiv-submission.zip
+          asset_name: arxiv-submission.zip
+          overwrite: true
+          tag: ${{ env.NOW }}
+          body: ${{ github.event.head_commit.message }}
+
+      - name: Upload bioRxiv submission package if paper file(s) change
+        if: steps.changed-files-yaml.outputs.paper_any_changed == 'true'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ github.workspace }}/output/biorxiv-submission.zip
+          asset_name: biorxiv-submission.zip
+          overwrite: true
+          tag: ${{ env.NOW }}
+          body: ${{ github.event.head_commit.message }}

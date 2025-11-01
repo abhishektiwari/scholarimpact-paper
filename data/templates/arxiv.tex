@@ -1,0 +1,220 @@
+\documentclass[
+  $if(papersize)$
+  $papersize$paper,
+  $endif$]{article}
+
+
+\usepackage{arxiv}
+
+
+$if(draft)$
+  \usepackage{draftwatermark}        % Draws a draft watermark :)
+  \SetWatermarkText{DRAFT}
+  \SetWatermarkScale{2}
+  \SetWatermarkColor[gray]{.95}
+$endif$
+
+$if(natbib)$
+\usepackage[$natbiboptions$]{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+
+
+\usepackage{siunitx}               % A better way of writing things with units
+\usepackage{tikz, adjustbox, tikz-qtree}
+\usepackage[protrusion=false]{microtype}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{longtable}      % tables that span multiple pages
+\usepackage{multirow}       % cells spanning multiple rows
+\usepackage{listings}       % code listings
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsmath}        % enhanced math environments
+
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}		      % Can be removed after putting your text content
+\usepackage{bm}             % Correct bold vectors
+\usepackage{graphicx}       % Enhanced support for graphics
+\usepackage{adjustbox}      % Adjusting content size
+\usepackage{orcidlink}      % ORCID link support
+\usepackage{xstring}        % String manipulation
+\usepackage{datetime2}      % Date formatting
+\usepackage{xparse}         % For \NewDocumentCommand
+\usepackage{calc}           % For calculations in lengths
+\usepackage{svg-extract}    % SVG support for arXiv compatibility
+
+% pandoc_conference_tempates additions
+
+\newcommand{\passthrough}[1]{#1}
+\newcommand{\ipaddress}[1]{\texttt{#1}}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% definitions for citeproc citations (from eisvogel)
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+
+% Ensure images don't exceed page width
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Date processing - convert ISO format to readable format
+$if(date)$
+\def\isodatetime{$date$}
+\def\parsedate#1-#2-#3T#4\relax{\def\dateyear{#1}\def\datemonth{#2}\def\dateday{#3}}
+\expandafter\parsedate\isodatetime\relax
+\def\monthname#1{\ifcase#1\or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi}
+\edef\formatteddate{\monthname{\datemonth} \dateday, \dateyear}
+$endif$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+  {\begin{list}{}{%
+   \setlength{\itemindent}{0pt}
+   \setlength{\leftmargin}{0pt}
+   \setlength{\parsep}{0pt}
+   % turn on hanging indent if param 1 is 1
+   \ifodd #1
+    \setlength{\leftmargin}{\cslhangindent}
+    \setlength{\itemindent}{-1\cslhangindent}
+   \fi
+   % set entry spacing
+   \setlength{\itemsep}{#2\baselineskip}}}
+  {\end{list}}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+\usepackage[capitalise]{cleveref}  % Clever references to stuff.
+
+$if(title)$
+    \title{$title$}
+$else$
+    \title{Add a title}
+$endif$
+
+%\date{September 9, 1985}	% Here you can change the date presented in the paper title
+$if(date)$
+\date{\formatteddate}
+$else$
+\date{}
+$endif$
+
+$if(author)$
+\author{
+$for(author)$
+  $author.name$$if(author.orcid)$~\orcidlink{$author.orcid$}$endif$\\
+  $for(affiliation)$
+    $affiliation.organization$$if(affiliation.city)$, $affiliation.city$$endif$\\
+  $endfor$
+  $if(author.email)$\texttt{$author.email$}$endif$
+  $sep$\And
+$endfor$
+}
+$endif$
+
+% \author{
+%   David S.~Hippocampus\thanks{Use footnote for providing further
+%     information about author (webpage, alternative
+%     address)---\emph{not} for acknowledging funding agencies.} \\
+%   Department of Computer Science\\
+%   Cranberry-Lemon University\\
+%   Pittsburgh, PA 15213 \\
+%   \texttt{hippo@cs.cranberry-lemon.edu} \\
+%   %% examples of more authors
+%    \And
+%  Elias D.~Striatum \\
+%   Department of Electrical Engineering\\
+%   Mount-Sheikh University\\
+%   Santa Narimana, Levand \\
+%   \texttt{stariate@ee.mount-sheikh.edu} \\
+%   %% \AND
+%   %% Coauthor \\
+%   %% Affiliation \\
+%   %% Address \\
+%   %% \texttt{email} \\
+%   %% \And
+%   %% Coauthor \\
+%   %% Affiliation \\
+%   %% Address \\
+%   %% \texttt{email} \\
+%   %% \And
+%   %% Coauthor \\
+%   %% Affiliation \\
+%   %% Address \\
+%   %% \texttt{email} \\
+% }
+
+% Uncomment to remove the date
+%\date{}
+
+% Uncomment to override  the `A preprint' in the header
+%\renewcommand{\headeright}{Technical Report}
+%\renewcommand{\undertitle}{Technical Report}
+
+\begin{document}
+
+% Set footer information from metadata
+$if(doi)$
+\renewcommand{\arxivdoi}{\href{https://doi.org/$doi$}{$doi$}}
+$endif$
+$if(author)$
+\renewcommand{\arxivauthor}{$for(author)$$author.name$$sep$, $endfor$}
+$endif$
+
+\maketitle
+
+% Set section counter to start from 1
+\setcounter{section}{0}
+
+% Start section numbering from H1 (sections)
+\setcounter{secnumdepth}{5}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
+\renewcommand{\thesubparagraph}{\theparagraph.\arabic{subparagraph}}
+
+$if(abstract)$
+    \begin{abstract}
+        $abstract$
+    \end{abstract}
+$endif$
+
+
+$if(keywords)$
+  \keywords{$keywords$}
+$endif$
+
+$body$
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+\end{document}

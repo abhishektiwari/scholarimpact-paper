@@ -1,0 +1,62 @@
+# Add Article details
+# https://pandoc.org/jats.html#required-metadata
+title: Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+abstract: |
+ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam 
+ pharetra metus ut nisi porta suscipit. Morbi at orci quis justo 
+ posuere convallis. Curabitur dapibus mollis pharetra. Curabitur 
+ eleifend vel leo vel condimentum. Phasellus elementum viverra eros. 
+ Vestibulum rhoncus nisl ipsum, nec pulvinar tellus luctus at. Etiam 
+ ullamcorper nec justo molestie mattis. Phasellus dapibus erat ut nisl 
+ dapibus, ut scelerisque dui tempus.
+tags:
+  - tag1
+  - tag2
+# Name of Authors in order
+author:
+  - name: First Author
+    orcid: 000-1111-2222-3333
+    surname: Author
+    given-names: First
+    email: first@example.com
+    affiliation: 1, 2
+    corresponding: true
+  - name: Second Author
+    orcid: 000-1111-2222-3334
+    surname: Author
+    given-names: Second
+    email: second@example.com
+    affiliation: 2
+affiliation:
+ - organization: Example Corp
+   id: 1
+ - organization: The University of Z
+   id: 2
+journal:
+  title: Journal of Xyz
+# ISO 8601 standard format i.e. YYYY-MM-DDTHH:MM:SS 
+date: 2019-09-07T00:00:00
+titlepage: true
+titlepage-color: FFFFFF
+titlepage-text-color: "000000"
+titlepage-rule-color: "000000"
+subtitle: Publication Name
+colorlinks: true
+listings-disable-line-numbers: true
+fontfamily: lmodern
+link-citations: true
+numbersections: true
+# Download style from https://github.com/citation-style-language/styles
+# Add to csl folder
+csl: ../csl/ieee.csl
+# Add doi for published paper or archive
+doi: 10.xxxxxx/draft
+cc-license: "CC BY 4.0"
+cc-license-url: "https://creativecommons.org/licenses/by/4.0/"
+header-includes:
+  - \usepackage{algorithm2e}
+  - \usepackage{tikz}
+
+panflute-filters: [graphvizv1, plantumlv1]
+panflute-path: ../data/filters
+plantuml-format: svg
