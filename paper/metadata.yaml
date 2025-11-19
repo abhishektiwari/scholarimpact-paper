@@ -21,12 +21,12 @@ author:
     affiliation: 1
     corresponding: true
 affiliation:
- - organization: D3ML
+ - organization: Independent Researcher
    id: 1
 journal:
   title: Journal of Xyz
 # ISO 8601 standard format i.e. YYYY-MM-DDTHH:MM:SS 
-date: 2019-09-07T00:00:00
+date: 2025-11-11
 titlepage: true
 titlepage-color: FFFFFF
 titlepage-text-color: "000000"
@@ -41,7 +41,7 @@ numbersections: true
 # Add to csl folder
 csl: ../csl/ieee.csl
 # Add doi for published paper or archive
-doi: 10.xxxxxx/draft
+doi: 10.5281/zenodo.17645632
 cc-license: "CC BY 4.0"
 cc-license-url: "https://creativecommons.org/licenses/by/4.0/"
 header-includes:
@@ -51,3 +51,11 @@ header-includes:
 panflute-filters: [graphvizv1, plantumlv1]
 panflute-path: ../data/filters
 plantuml-format: svg
+# GitHub repository link (optional)
+github-repository: "https://github.com/abhishektiwari/scholarimpact"
+# Documentation link (optional)
+documentation-url: "https://github.com/abhishektiwari/scholarimpact"
+# PyPI link (optional)
+pypi-url: "https://pypi.org/project/scholarimpact/"
+# CRAN link (optional)
+# cran-url: "https://cran.r-project.org/web/packages/hbat/index.html"

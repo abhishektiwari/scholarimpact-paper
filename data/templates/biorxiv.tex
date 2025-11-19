@@ -136,7 +136,7 @@ $endif$
 
 % define custom colors (this one is for figure captions)
 \definecolor{Gray}{gray}{.25}
-
+\def\tightlist{}
 % graphics support
 \usepackage{graphicx}
 $if(svg)$
@@ -287,6 +287,55 @@ $abstract$
 $else$
 \section*{Abstract}
 Your abstract goes here. This should be a concise summary of your research, including background, methods, results, and conclusions.
+$endif$
+
+% Add DOI if specified
+$if(doi)$
+\marginnote{\raggedright\small\textbf{DOI}\\[0.2cm]\href{https://doi.org/$doi$}{$doi$}}[0cm]
+$endif$
+
+% Add published date if specified
+$if(date)$
+\marginnote{\raggedright\small\textbf{Published}\\[0.2cm]$date$}$if(doi)$[1.5cm]$else$[0cm]$endif$
+$endif$
+
+% Add sidebar section for software links
+$if(github-repository)$
+\marginnote{\raggedright\small\textbf{Software}}$if(date)$$if(doi)$[3.5cm]$else$[2.0cm]$endif$$else$$if(doi)$[2.5cm]$else$[0cm]$endif$$endif$
+\marginnote{\raggedright\small\textbullet~\href{$github-repository$}{Code Repository}}$if(date)$$if(doi)$[4.0cm]$else$[2.5cm]$endif$$else$$if(doi)$[3.0cm]$else$[0.5cm]$endif$$endif$
+$if(documentation-url)$
+\marginnote{\raggedright\small\textbullet~\href{$documentation-url$}{Documentation}}$if(date)$$if(doi)$[4.5cm]$else$[3.0cm]$endif$$else$$if(doi)$[3.5cm]$else$[1.0cm]$endif$$endif$
+$endif$
+$if(pypi-url)$
+\marginnote{\raggedright\small\textbullet~\href{$pypi-url$}{PyPI Package}}$if(date)$$if(doi)$[5.0cm]$else$[3.5cm]$endif$$else$$if(doi)$[4.0cm]$else$[1.5cm]$endif$$endif$
+$endif$
+$if(cran-url)$
+\marginnote{\raggedright\small\textbullet~\href{$cran-url$}{CRAN Package}}$if(date)$$if(doi)$[5.5cm]$else$[4.0cm]$endif$$else$$if(doi)$[4.5cm]$else$[2.0cm]$endif$$endif$
+$endif$
+$else$
+$if(documentation-url)$
+\marginnote{\raggedright\small\textbf{Software}}$if(date)$$if(doi)$[3.5cm]$else$[2.0cm]$endif$$else$$if(doi)$[2.5cm]$else$[0cm]$endif$$endif$
+\marginnote{\raggedright\small\textbullet~\href{$documentation-url$}{Documentation}}$if(date)$$if(doi)$[4.0cm]$else$[2.5cm]$endif$$else$$if(doi)$[3.0cm]$else$[0.5cm]$endif$$endif$
+$if(pypi-url)$
+\marginnote{\raggedright\small\textbullet~\href{$pypi-url$}{PyPI Package}}$if(date)$$if(doi)$[4.5cm]$else$[3.0cm]$endif$$else$$if(doi)$[3.5cm]$else$[1.0cm]$endif$$endif$
+$endif$
+$if(cran-url)$
+\marginnote{\raggedright\small\textbullet~\href{$cran-url$}{CRAN Package}}$if(date)$$if(doi)$[5.0cm]$else$[3.5cm]$endif$$else$$if(doi)$[4.0cm]$else$[1.5cm]$endif$$endif$
+$endif$
+$else$
+$if(pypi-url)$
+\marginnote{\raggedright\small\textbf{Software}}$if(date)$$if(doi)$[3.5cm]$else$[2.0cm]$endif$$else$$if(doi)$[2.5cm]$else$[0cm]$endif$$endif$
+\marginnote{\raggedright\small\textbullet~\href{$pypi-url$}{PyPI Package}}$if(date)$$if(doi)$[4.0cm]$else$[2.5cm]$endif$$else$$if(doi)$[3.0cm]$else$[0.5cm]$endif$$endif$
+$if(cran-url)$
+\marginnote{\raggedright\small\textbullet~\href{$cran-url$}{CRAN Package}}$if(date)$$if(doi)$[4.5cm]$else$[3.0cm]$endif$$else$$if(doi)$[3.5cm]$else$[1.0cm]$endif$$endif$
+$endif$
+$else$
+$if(cran-url)$
+\marginnote{\raggedright\small\textbf{Software}}$if(date)$$if(doi)$[3.5cm]$else$[2.0cm]$endif$$else$$if(doi)$[2.5cm]$else$[0cm]$endif$$endif$
+\marginnote{\raggedright\small\textbullet~\href{$cran-url$}{CRAN Package}}$if(date)$$if(doi)$[4.0cm]$else$[2.5cm]$endif$$else$$if(doi)$[3.0cm]$else$[0.5cm]$endif$$endif$
+$endif$
+$endif$
+$endif$
 $endif$
 
 % now start line numbers
